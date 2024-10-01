@@ -19,7 +19,7 @@ $(TARGET): $(SOURCES)
 
 # Regla para ejecutar el programa
 run: $(TARGET)
-	./$(TARGET) archivo_entrada.bin 8  # Cambia el número 8 por 16 si deseas ver en grupos de 16 bits
+	./$(TARGET) archivo_entrada.bin 8 binario  # Cambia el número 8 por 16 si deseas ver en grupos de 16 bits
 
 # Limpiar archivos generados
 clean:

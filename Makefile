@@ -19,7 +19,7 @@ $(TARGET): $(SOURCES)
 
 # Regla para ejecutar el programa
 run: $(TARGET)
-	./$(TARGET) archivo_entrada.bin 8 binario  # Cambia el número 8 por 16 si deseas ver en grupos de 16 bits
+	./$(TARGET) prueba.bin 8 binario  Uso: ./visualizar_archivo_binario <archivo_entrada> <grupo_bits> <formato (binario|octal|decimal|hexadecimal)>
 
 # Limpiar archivos generados
 clean:

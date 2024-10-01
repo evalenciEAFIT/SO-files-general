@@ -1,4 +1,3 @@
-
 # Procesador de Archivos Binarios
 
 Este programa en C++ permite abrir un archivo en modo binario, mostrar su contenido en diferentes formatos (binario, octal, decimal y hexadecimal) y visualizar la información básica del archivo, como su nombre y tamaño.
@@ -40,69 +39,92 @@ Los diskettes fueron uno de los primeros medios de almacenamiento portátiles ut
 
 ---
 
-## Conceptos clave
+## Explicación del código
 
-### Archivos en texto plano vs archivos binarios
+### Archivo `ArchivoBinario.h`
 
-- **Archivos en texto plano**: Los archivos en texto plano son aquellos que almacenan información en formato legible por humanos. Por ejemplo, archivos `.txt`, `.csv` o código fuente. Estos archivos contienen caracteres de texto que pueden ser interpretados por un editor de texto. Cada carácter se representa en el archivo como un código ASCII o Unicode.
-- **Archivos binarios**: A diferencia de los archivos en texto plano, los archivos binarios almacenan datos en formato no legible por humanos. Un archivo binario puede contener cualquier tipo de datos, como imágenes, videos, o archivos ejecutables, donde cada bit tiene un significado específico según el formato del archivo. Los archivos binarios no pueden ser abiertos y entendidos directamente por un editor de texto.
+Este archivo define la clase `ArchivoBinario`, que maneja la lectura y visualización de los archivos binarios. A continuación se describen los principales componentes de la clase:
 
-### Representación de los datos
+- **Variables privadas**:
+  - `archivo_nombre`: Almacena el nombre del archivo que se va a procesar.
+  - `archivo_tamaño`: Almacena el tamaño del archivo una vez que se ha leído.
 
-Los datos almacenados en un archivo, ya sea de texto o binario, pueden ser representados de distintas formas. En este programa, mostramos la representación de los datos en:
-- **Binario**: La representación en binario usa solo los valores 0 y 1. Cada byte (8 bits) se representa como una secuencia de 8 valores binarios, por ejemplo, `01101011`. Esta es la forma más básica de representar los datos en un ordenador.
-- **Octal**: La representación octal utiliza 8 valores: del 0 al 7. Cada dígito octal es el equivalente de 3 bits. Por ejemplo, el valor binario `101011` se convierte a octal como `53`. La representación octal fue históricamente usada en sistemas más antiguos y en lenguajes como el ensamblador.
-- **Decimal**: La representación decimal es la forma común que utilizamos en nuestra vida diaria. Los números se representan con dígitos del 0 al 9. Un byte en decimal puede tener un valor entre 0 y 255.
-- **Hexadecimal**: La representación hexadecimal utiliza 16 símbolos: los números del 0 al 9 y las letras A a F para representar los valores de 0 a 15. Cada grupo de 4 bits se convierte a un dígito hexadecimal. Por ejemplo, el valor binario `11111010` se convierte en hexadecimal como `FA`.
+- **Métodos públicos**:
+  - `ArchivoBinario(const std::string& nombre_archivo)`: Constructor que inicializa el nombre del archivo.
+  - `leer()`: Método que abre el archivo binario y lee su contenido.
+  - `mostrar_informacion()`: Muestra información básica del archivo, como su nombre y tamaño.
+  - `mostrar_datos()`: Muestra el contenido del archivo en el formato (binario, octal, decimal o hexadecimal) y grupo de bits especificado.
 
-### Relación con los archivos
+### Archivo `ArchivoBinario.cpp`
 
-Los archivos binarios son una colección de bytes (8 bits) que pueden ser interpretados de distintas maneras, dependiendo del formato del archivo. Por ejemplo:
+Este archivo contiene la implementación de los métodos definidos en `ArchivoBinario.h`:
 
-- Un archivo de imagen `.png` almacenará píxeles y su información de color en formato binario.
-- Un archivo de texto almacenará los caracteres codificados, como ASCII o UTF-8, en forma binaria.
+- **`leer()`**: Abre el archivo en modo binario y devuelve un vector de bytes (`unsigned char`) con los datos leídos.
+- **`mostrar_informacion()`**: Muestra en la consola el nombre del archivo y su tamaño en bytes.
+- **`mostrar_datos()`**: Muestra los datos leídos del archivo en el formato y grupo de bits (8, 16, 32 o 64) solicitados. También gestiona cómo se muestran los datos en binario, octal, decimal y hexadecimal mediante funciones privadas (`mostrar_binario`, `mostrar_octal`, etc.).
 
-El formato en que se visualizan estos datos es importante para entender el contenido del archivo a nivel más bajo. Dependiendo del uso que le demos a estos datos (ya sea al modificar bits, extraer información específica o procesar imágenes o video), podemos elegir visualizarlos en binario, octal, decimal o hexadecimal.
+### Archivo `main.cpp`
 
-## Uso del Programa
+Este archivo contiene el punto de entrada del programa. Recibe los argumentos desde la línea de comandos para especificar el archivo a abrir, el formato de visualización y el tamaño del grupo de bits.
 
-### Compilación
+El flujo del programa es el siguiente:
 
-Para compilar el programa, simplemente ejecuta el siguiente comando:
+1. Verifica que los argumentos ingresados por el usuario sean válidos.
+2. Crea una instancia de `ArchivoBinario` con el archivo especificado.
+3. Llama al método `leer()` para cargar el archivo.
+4. Muestra la información del archivo mediante `mostrar_informacion()`.
+5. Si el archivo se ha leído correctamente, muestra su contenido usando el método `mostrar_datos()` en el formato y tamaño especificado.
 
-```bash
-make
+### Archivo `Makefile`
+
+El archivo `Makefile` contiene las reglas necesarias para compilar el programa. Utiliza el compilador `g++` con las banderas `-Wall`, `-Wextra`, y `-std=c++17` para generar el ejecutable.
+
+Las principales reglas del `Makefile` son:
+
+- **`all`**: Compila el programa creando el ejecutable `visualizar_archivo_binario`.
+- **`run`**: Ejecuta el programa con un archivo binario de ejemplo.
+- **`clean`**: Elimina el archivo ejecutable generado.
+
+## Cómo ejecutar el programa
+
+1. **Compilar**: Ejecuta el siguiente comando para compilar el programa:
+
+   ```bash
+   make
+   ```
+
+2. **Ejecutar**: Una vez compilado, puedes ejecutar el programa con la siguiente sintaxis:
+
+   ```bash
+   ./visualizar_archivo_binario <archivo_entrada> <grupo_bits> <formato>
+   ```
+
+   - `<archivo_entrada>`: Es el nombre del archivo binario que deseas visualizar.
+   - `<grupo_bits>`: Especifica cómo se agruparán los bits para la visualización. Puede ser 8, 16, 32 o 64.
+   - `<formato>`: El formato en el que se mostrarán los datos (binario, octal, decimal o hexadecimal).
+
+   Ejemplo de ejecución:
+
+   ```bash
+   ./visualizar_archivo_binario archivo.bin 16 hexadecimal
+   ```
+
+   Este comando leerá el archivo `archivo.bin` y mostrará su contenido en grupos de 16 bits y en formato hexadecimal.
+
+## Ejemplo de salida
+
+```
+Nombre del archivo: archivo.bin
+Tamaño del archivo: 1024 bytes
+
+11110000 10101010 | 11110000 10101010 | ...
 ```
 
-Esto generará el archivo ejecutable `visualizar_archivo_binario`.
-
-### Ejecución
-
-El programa permite visualizar un archivo en diferentes formatos y grupos de bits. Para ejecutarlo, utiliza el siguiente formato:
-
-```bash
-./visualizar_archivo_binario <archivo_entrada> <grupo_bits> <formato>
-```
-
-- `<archivo_entrada>`: Es el nombre del archivo que deseas visualizar.
-- `<grupo_bits>`: El tamaño de grupo en bits (puede ser 8, 16, 32 o 64).
-- `<formato>`: El formato de visualización (puede ser `binario`, `octal`, `decimal` o `hexadecimal`).
-
-#### Ejemplo
-
-```bash
-./visualizar_archivo_binario archivo.bin 16 hexadecimal
-```
-
-Este comando mostrará el contenido del archivo `archivo.bin` en grupos de 16 bits y en formato hexadecimal.
-
-### Información del archivo
-
-Antes de mostrar los datos, el programa también muestra información básica del archivo, como su nombre y tamaño en bytes.
+En este ejemplo, los datos del archivo se muestran en formato binario y en grupos de 16 bits. Cada grupo de bits se separa con un `|`.
 
 ### Limpieza
 
-Para limpiar los archivos generados después de la compilación:
+Para eliminar los archivos generados tras la compilación:
 
 ```bash
 make clean

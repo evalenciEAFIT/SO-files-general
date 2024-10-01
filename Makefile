@@ -19,7 +19,7 @@ $(TARGET): $(SOURCES)
 
 # Regla para ejecutar el programa
 run: $(TARGET)
-	./$(TARGET) prueba.bin 8 binario  Uso: ./visualizar_archivo_binario <archivo_entrada> <grupo_bits> <formato (binario|octal|decimal|hexadecimal)>
+	./$(TARGET) prueba.bin 8 binario  Uso: <archivo_entrada> <grupo_bits (8, 16, 32, 64)> <formato (binario|octal|decimal|hexadecimal)>
 
 # Limpiar archivos generados
 clean:

@@ -4,7 +4,7 @@
 int main(int argc, char* argv[]) {
     // Verificamos que se han pasado al menos 3 argumentos (nombre del archivo, grupo de bits y formato)
     if (argc < 4) {
-        std::cerr << "Uso: " << argv[0] << " <archivo_entrada> <grupo_bits> <formato (binario|octal|decimal|hexadecimal)>" << std::endl;
+        std::cerr << "Uso: " << argv[0] << " <archivo_entrada> <grupo_bits (8,16,32,64)> <formato (binario|octal|decimal|hexadecimal)>" << std::endl;
         return 1;
     }
 
